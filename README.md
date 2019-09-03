@@ -1,2 +1,2 @@
-# capy
+# Testes Ruby com Capybara
  
