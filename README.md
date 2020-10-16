@@ -1,2 +1,2 @@
-# Testes Ruby com Capybara
+# Conceitos com Ruby e Capybara
  
