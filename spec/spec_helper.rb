@@ -13,7 +13,14 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.include Capybara::DSL
+
+  config.after(:example) do |scenario| 
+    nome = scenario.description.gsub(/[^A-Za-z0-9 ]/, '').tr(' ','_')
+    page.save_screenshot('log/' + nome + '.png') if scenario.fail
+  end
+
 end
+
 
 Capybara.configure do |config|
   config.default_driver = :selenium
