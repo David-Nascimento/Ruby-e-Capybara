@@ -1,6 +1,6 @@
 describe 'Marcação com Checkbox', :checkbox do
     before(:each) do
-        visit 'https://training-wheels-protocol.herokuapp.com/checkboxes'
+        visit '/checkboxes'
     end
 
     it 'Marca um input' do
