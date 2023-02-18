@@ -14,16 +14,24 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.include Capybara::DSL
 
-  config.after(:example) do |scenario| 
-    nome = scenario.description.gsub(/[^A-Za-z0-9 ]/, '').tr(' ','_')
-    page.save_screenshot('log/' + nome + '.png') if scenario.fail
+  config.after(:each) do |example|
+    if example.exception # verifica se o exemplo falhou
+      screenshot_name = example.full_description.gsub(/\s+/, "_").downcase
+      screenshot_path = "log/screenshots/#{screenshot_name}.png"
+      page.save_screenshot(screenshot_path)
+      puts "Screenshot salvo em #{screenshot_path}"
+    else # caso contrário, tire uma screenshot normal
+      screenshot_name = example.full_description.gsub(/\s+/, "_").downcase
+      screenshot_path = "log/screenshots/#{screenshot_name}.png"
+      page.save_screenshot(screenshot_path)
+      puts "Screenshot salvo em #{screenshot_path}"
+    end
   end
 
 end
 
-
 Capybara.configure do |config|
-  config.default_driver = :selenium
+  config.default_driver = :selenium_chrome
   config.default_max_wait_time = 15
   config.app_host = 'https://training-wheels-protocol.herokuapp.com'
 end 
